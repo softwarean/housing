@@ -1,0 +1,30 @@
+.row
+  .col-md-6
+    %h1= t('.apartments')
+    %br
+  .col-md-6
+    .pull-right
+      = link_to t('add'), new_admin_apartment_path, class: 'btn btn-default btn-lg btn-primary'
+.row
+  .col-md-12
+    = render 'search_form'
+%br
+.row
+  .col-md-12
+    %table.table.table-hover.table-condensed.table-striped
+      %tr
+        %th= sort_link @q, :house_street_name
+        %th= sort_link @q, :house_house_number
+        %th= sort_link @q, :number, t('.number')
+        %th= t('delete')
+      - @apartments.each do |apartment|
+        %tr{ id: "index-apartment-#{apartment.id}" }
+          %td= apartment.house.street.name
+          %td= apartment.house.house_number
+          %td= apartment.number
+          %td
+            = link_to admin_apartment_path(apartment), method: :delete, remote: true, data: { confirm: t('are_you_sure')} do
+              %span.glyphicon.glyphicon-remove{ aria: { hidden: true } }
+.row
+  .col-md-12
+    = paginate @apartments

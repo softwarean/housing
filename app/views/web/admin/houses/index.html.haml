@@ -1,0 +1,28 @@
+.row
+  .col-md-6
+    %h1= t('.houses')
+    %br
+  .col-md-6
+    .pull-right
+      = link_to t('add'), new_admin_house_path, class: 'btn btn-default btn-lg btn-primary'
+.row
+  .col-md-12
+    %table.table.table-hover.table-condensed.table-striped
+      %tr
+        %th= sort_link @q, :street_name
+        %th= sort_link @q, :house_number, t('.number')
+        %th= t('edit')
+        %th= t('delete')
+      - @houses.each do |house|
+        %tr
+          %td= house.street.name
+          %td= house.house_number
+          %td
+            = link_to edit_admin_house_path(house) do
+              %span.glyphicon.glyphicon-pencil{ aria: { hidden: true } }
+          %td
+            = link_to admin_house_path(house), method: :delete, data: { confirm: t('are_you_sure')} do
+              %span.glyphicon.glyphicon-remove{ aria: { hidden: true } }
+.row
+  .col-md-12
+    = paginate @houses

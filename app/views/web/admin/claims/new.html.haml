@@ -1,0 +1,6 @@
+.row
+  .col-md-6
+    %h1
+      = t('.add_claim')
+    %br
+    = render 'form', url: admin_claims_path, method: :post, with_state: false

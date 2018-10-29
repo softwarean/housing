@@ -1,0 +1,7 @@
+%small.text-muted= t('.electricity_meter_format')
+%table.table.table-hover.table-bordered
+  %tr
+    = report_header
+  - meters.each do |meter|
+    %tr
+      = meter_info(meter)

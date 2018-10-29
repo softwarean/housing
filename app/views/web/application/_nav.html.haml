@@ -1,0 +1,38 @@
+%nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle.collapsed{ aria: { expanded: false }, data: { target: '#navbar', toggle: 'collapse' }, type: 'button' }
+      = link_to t('housing'), admin_root_path, class: 'navbar-brand'
+    .collapse.navbar-collapse#navbar
+      - if current_user
+        %ul.nav.navbar-nav
+          = active_link_to t('.users'), admin_users_path, class_active: 'active', wrap_tag: :li
+        %ul.nav.navbar-nav
+          = active_link_to t('.meter_indications'), admin_meter_indications_path, class_active: 'active', wrap_tag: :li
+        %ul.nav.navbar-nav
+          = active_link_to t('.meters'), admin_meters_path, class_active: 'active', wrap_tag: :li
+        %ul.nav.navbar-nav
+          = active_link_to t('.services'), admin_services_path, class_active: 'active', wrap_tag: :li
+        %ul.nav.navbar-nav
+          = active_link_to t('.accounts'), admin_accounts_path, class_active: 'active', wrap_tag: :li
+        %ul.nav.navbar-nav
+          = active_link_to t('.tariffs'), admin_tariffs_path, class_active: 'active', wrap_tag: :li
+        %ul.nav.navbar-nav
+          = active_link_to t('.claims'), admin_claims_path, class_active: 'active', wrap_tag: :li
+        %ul.nav.navbar-nav
+          = active_link_to t('.appeals'), admin_appeals_path, class_active: 'active', wrap_tag: :li
+        %ul.nav.navbar-nav
+          %li.dropdown
+            %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } }
+              = t('.addresses')
+              %span.caret
+            %ul.dropdown-menu
+              %li= active_link_to t('.streets'), admin_streets_path, class_active: 'active', wrap_tag: :li
+              %li= active_link_to t('.houses'), admin_houses_path, class_active: 'active', wrap_tag: :li
+              %li= active_link_to t('.apartments'), admin_apartments_path, class_active: 'active', wrap_tag: :li
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            %p.navbar-text
+              = current_user.name
+          %li
+            = link_to t('logout'), logout_path

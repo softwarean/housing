@@ -1,0 +1,6 @@
+.row
+  .col-md-6
+    %h1
+      = t('.add_user')
+    %br
+    = render 'user_form', url: admin_users_path, method: :post

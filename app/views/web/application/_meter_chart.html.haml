@@ -1,0 +1,5 @@
+- if !user_view
+  = link_to t('.back'), :back, class: 'btn btn-default btn-xs'
+  %hr
+%div
+  = render_chart(diffs_set)

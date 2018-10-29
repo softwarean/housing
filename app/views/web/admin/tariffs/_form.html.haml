@@ -1,0 +1,6 @@
+= simple_form_for @tariff, url: url, html: { method: method } do |f|
+  = f.input :name
+  = f.input :kind, as: :select, include_blank: true
+  = f.input :unit_of_measure
+  = f.input :value
+  = f.submit t('save'), class: 'btn btn-primary'

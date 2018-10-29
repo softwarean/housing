@@ -1,0 +1,32 @@
+= simple_form_for @appeal, url: url, html: { method: method } do |f|
+  .form-group
+    %label.control-label= t('.appeal_number')
+    .form-inline
+      = @appeal.id
+  .form-group
+    %label.control-label= t('.created_at')
+    .form-inline
+      = render 'moment_formattable', datetime_utc: @appeal.created_at.utc,
+        out_format: ::Constants::MomentFormats::APPEAL_CREATED_AT
+  .form-group
+    %label.control-label= t('.content')
+    .form-inline.well{ style: 'word-wrap: break-word' }
+      = @appeal.content
+  .form-group
+    %label.control-label= t('.user')
+    .form-inline
+      = @appeal.user.name
+  .form-group
+    %label.control-label= t('.user_phone')
+    .form-inline
+      = @appeal.user.phone
+  .form-group
+    = f.label :aasm_state, t('.current_state'), for: :appeal_state_display
+    %input.form-control{ id: :appeal_state_display, disabled: true, value: @appeal.aasm.human_state }
+  - if @appeal.permitted_states.count > 1
+    .form-group
+      = f.label :aasm_state, t('.new_state')
+      = f.collection_select :aasm_state, @appeal.permitted_states, :last, :first, {}, { class: 'form-control' }
+    = f.submit t('save'), class: 'btn btn-primary'
+  - else
+    = link_to t('.back'), :back, class: 'btn btn-default'

@@ -1,0 +1,5 @@
+.row
+  .col-md-6
+    %h1= t('.edit_appeal')
+    %br
+    = render 'form', url: admin_appeal_path(@appeal), method: :put, with_state: true

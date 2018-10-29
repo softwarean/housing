@@ -1,0 +1,32 @@
+.row
+  .col-md-6
+    %h1= t('.users')
+    %br
+  .col-md-6
+    .pull-right
+      = link_to t('add'), new_admin_user_path, class: 'btn btn-default btn-lg btn-primary'
+.row
+  .col-md-12
+    %table.table.table-hover.table-condensed.table-striped
+      %tr
+        %th= sort_link @q, :name
+        %th= sort_link @q, :phone
+        %th= sort_link @q, :email
+        %th= sort_link @q, :role
+        %th= t('edit')
+        %th= t('delete')
+      - @users.each do |user|
+        %tr
+          %td= user.name
+          %td= user.phone
+          %td= user.email
+          %td= user.role.text
+          %td
+            = link_to edit_admin_user_path(user) do
+              %span.glyphicon.glyphicon-pencil{ aria: { hidden: true } }
+          %td
+            = link_to admin_user_path(user), method: :delete, data: { confirm: t('are_you_sure')} do
+              %span.glyphicon.glyphicon-remove{ aria: { hidden: true } }
+.row
+  .col-md-12
+    = paginate @users

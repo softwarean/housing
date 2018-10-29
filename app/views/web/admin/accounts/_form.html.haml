@@ -1,0 +1,4 @@
+= simple_form_for @account, url: url, html: { method: method } do |f|
+  = f.input :account_number
+  = f.association :apartment, label_method: :first, collection: apartments_collection, input_html: { class: 'select2' }
+  = f.submit t('save'), class: 'btn btn-primary'

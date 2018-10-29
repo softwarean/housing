@@ -1,0 +1,36 @@
+.row
+  .col-md-6
+    %h1= t('.meters')
+.row
+  .col-md-12
+    = search_form_for @q, url: admin_meters_path, class: "form-inline" do |f|
+      .form-group
+        = f.search_field :uuid_eq, class: "form-control", placeholder: t('.uuid')
+      .form-group
+        = f.search_field :number_eq, class: "form-control", placeholder: t('.meter_number')
+      .form-group
+        = f.collection_select :kind_eq, Meter.kind.options, :last, :first, { include_blank: t('.meter_kind') }, { class: 'form-control' }
+      .form-group
+        = f.search_field :account_number_eq, class: "form-control", placeholder: t('.account_number')
+      = f.submit t('search'), class: 'btn btn-primary'
+      = link_to t('reset_filter'), admin_meters_path, class: 'btn btn-default'
+%br
+.row
+  .col-md-12
+    %table.table.table-hover.table-condensed.table-striped
+      %tr
+        %th= t('.uuid')
+        %th= sort_link @q, :description
+        %th= sort_link @q, :number
+        %th= sort_link @q, :kind
+        %th= sort_link @q, :account_number
+      - @meters.each do |meter|
+        %tr
+          %td= link_to meter.uuid, admin_meter_path(meter)
+          %td= meter.description
+          %td= meter.number
+          %td= meter.kind.text
+          %td= meter.account_number
+.row
+  .col-md-12
+    = paginate @meters

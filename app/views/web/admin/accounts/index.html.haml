@@ -1,0 +1,32 @@
+.row
+  .col-md-6
+    %h1= t('.accounts')
+    %br
+  .col-md-6
+    .pull-right
+      = link_to t('add'), new_admin_account_path, class: 'btn btn-default btn-lg btn-primary'
+.row
+  .col-md-12
+    %table.table.table-hover.table-condensed.table-striped
+      %tr
+        %th= sort_link @q, :account_number
+        %th= sort_link @q, :apartment_house_street_name
+        %th= sort_link @q, :apartment_house_house_number
+        %th= sort_link @q, :apartment_number
+        %th= t('edit')
+        %th= t('delete')
+      - @accounts.each do |account|
+        %tr
+          %td= account.account_number
+          %td= account.apartment.house.street.name
+          %td= account.apartment.house.house_number
+          %td= account.apartment.number
+          %td
+            = link_to edit_admin_account_path(account) do
+              %span.glyphicon.glyphicon-pencil{ aria: { hidden: true } }
+          %td
+            = link_to admin_account_path(account), method: :delete, data: { confirm: t('are_you_sure')} do
+              %span.glyphicon.glyphicon-remove{ aria: { hidden: true } }
+.row
+  .col-md-12
+    = paginate @accounts

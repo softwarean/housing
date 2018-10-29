@@ -1,0 +1,15 @@
+= simple_form_for @claim, url: url, html: { method: method } do |f|
+  = f.input :subject
+  = f.input :description
+  = f.association :service, label_method: :name
+  = f.association :applicant, label_method: :name
+  - if with_state
+    .form-group
+      = f.label :aasm_state, t('.current_state'), for: :claim_state_display
+      %input.form-control{ id: :claim_state_display, disabled: true, value: @claim.aasm.human_state }
+    - if @claim.permitted_states.count > 1
+      .form-group
+        = f.label :aasm_state, t('.new_state')
+        = f.collection_select :aasm_state, @claim.permitted_states, :last, :first, {}, { class: 'form-control' }
+  = f.input :deadline, include_blank: true
+  = f.submit t('save'), class: 'btn btn-primary'

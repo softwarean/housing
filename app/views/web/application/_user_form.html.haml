@@ -1,0 +1,9 @@
+= simple_form_for @user, url: url, html: { method: method } do |f|
+  = f.input :name
+  = f.input :phone, input_html: { data: { mask: '+7-999-999-99-99' } }
+  = f.input :email
+  - if admin?
+    = f.input :role, as: :select, include_blank: false
+  = f.input :password
+  = f.association :accounts, label_method: :account_number, collection: Account.order(:account_number)
+  = f.submit t('save'), class: 'btn btn-primary'

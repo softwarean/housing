@@ -1,0 +1,32 @@
+.row
+  .col-md-6
+    %h1= t('.tariffs')
+    %br
+  .col-md-6
+    .pull-right
+      = link_to t('add'), new_admin_tariff_path, class: 'btn btn-default btn-lg btn-primary'
+.row
+  .col-md-12
+    %table.table.table-hover.table-condensed.table-striped
+      %tr
+        %th= sort_link @q, :name
+        %th= sort_link @q, :kind
+        %th= sort_link @q, :unit_of_measure
+        %th= sort_link @q, :value
+        %th= t('edit')
+        %th= t('delete')
+      - @tariffs.each do |tariff|
+        %tr
+          %td= tariff.name
+          %td= tariff.kind && tariff.kind.text
+          %td= tariff.unit_of_measure
+          %td= tariff.value
+          %td
+            = link_to edit_admin_tariff_path(tariff) do
+              %span.glyphicon.glyphicon-pencil{ aria: { hidden: true } }
+          %td
+            = link_to admin_tariff_path(tariff), method: :delete, data: { confirm: t('are_you_sure')} do
+              %span.glyphicon.glyphicon-remove{ aria: { hidden: true } }
+.row
+  .col-md-12
+    = paginate @tariffs

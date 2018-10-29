@@ -1,0 +1,41 @@
+.row
+  .col-md-12
+    %h3= t('.meter', kind: @meter.kind.text)
+    .well.col-md-12
+      .col-md-6
+        %p
+          %b= t('.uuid')
+          %br
+          = @meter.uuid
+        %p
+          %b= t('.number')
+          %br
+          = @meter.number
+      .col-md-6
+        %p
+          %b= t('.account_number')
+          %br
+          = @meter.account_number
+        %p
+          %b= t('.description')
+          %br
+          = @meter.description
+.row
+  .col-md-6
+    %h3= t('.meter_indications')
+%br
+.row
+  .col-md-12
+    %table.table.table-hover.table-condensed.table-striped
+      %tr
+        %th= sort_link @q, :meter_description
+        %th= sort_link @q, :transmitted_at
+        %th= t('.data')
+      - @meter_indications.each do |meter_indication|
+        %tr
+          %td= meter_indication.meter_description
+          %td= meter_indication.transmitted_at
+          %td= meter_indication.data
+.row
+  .col-md-12
+    = paginate @meter_indications

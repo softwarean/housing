@@ -1,0 +1,4 @@
+- if @errors&.any?
+  alert("#{@errors.join(';')}");
+- else
+  $("#index-apartment-#{@apartment.id}").remove();

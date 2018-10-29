@@ -1,0 +1,6 @@
+.row
+  .col-md-6
+    %h1
+      = t('.add_tariff')
+    %br
+    = render 'form', url: admin_tariffs_path, method: :post

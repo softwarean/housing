@@ -1,0 +1,7 @@
+= search_form_for @q, url: admin_apartments_path, class: "form-inline" do |f|
+  .form-group
+    = f.search_field :house_street_name_cont, class: "form-control", placeholder: t('.street_name')
+  .form-group
+    = f.search_field :house_house_number_cont, class: "form-control", placeholder: t('.house_number')
+  = f.submit t('search'), class: 'btn btn-primary'
+  = link_to t('reset_filter'), admin_apartments_path, class: 'btn btn-default'

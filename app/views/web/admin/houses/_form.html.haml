@@ -1,0 +1,4 @@
+= simple_form_for @house, url: url, html: { method: method } do |f|
+  = f.association :street, label_method: :name, collection: Street.order(:name), input_html: { class: 'select2' }
+  = f.input :house_number, label: t('.number')
+  = f.submit t('save'), class: 'btn btn-primary'

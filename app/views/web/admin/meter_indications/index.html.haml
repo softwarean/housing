@@ -1,0 +1,30 @@
+.row
+  .col-md-6
+    %h1= t('.meter_indications')
+.row
+  .col-md-8
+    = search_form_for @q, url: admin_meter_indications_path, class: "form-inline" do |f|
+      .form-group
+        = f.search_field :meter_uuid_eq, class: "form-control", placeholder: t('.meter_uuid')
+      .form-group
+        = f.search_field :transmitted_at_lt, class: "form-control", placeholder: t('.transmitted_at_lt')
+      = f.submit t('search'), class: 'btn btn-primary'
+      = link_to t('reset_filter'), admin_meter_indications_path, class: 'btn btn-default'
+%br
+.row
+  .col-md-12
+    %table.table.table-hover.table-condensed.table-striped
+      %tr
+        %th= t('.meter_uuid')
+        %th= sort_link @q, :meter_description
+        %th= sort_link @q, :transmitted_at
+        %th= t('.data')
+      - @meter_indications.each do |meter_indication|
+        %tr
+          %td= meter_indication.meter_uuid
+          %td= meter_indication.meter_description
+          %td= meter_indication.transmitted_at
+          %td= meter_indication.data
+.row
+  .col-md-12
+    = paginate @meter_indications
